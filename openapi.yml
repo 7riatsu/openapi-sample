@@ -1,0 +1,106 @@
+openapi: '3.0.2'
+info:
+  title: Open API Sample
+  version: '1.0'
+  description: This is a sample code.
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+  - url: https://pet.example.com/v1
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: OK
+  /pets:
+    get:
+      parameters:
+        - name: tags
+          in: query
+          description: tags to filter by
+          required: false
+          style: form
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#components/schemas/Pet'
+        default:
+          description: Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
+    post:
+      description: Creates a new pet.
+      operationId: addPet
+      requestBody:
+        description: request body for adding a new pet.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/NewPet'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Pet'
+        default:
+          description: Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
+  /pets/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: ID for fetching pet.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Pet'
+        default:
+          description: Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
+    delete:
+      parameters:
+        - name: id
+          in: path
+          description: ID for deleting pet.
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: pet deleted
+        default:
+          description: Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Error'
