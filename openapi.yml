@@ -33,13 +33,14 @@ paths:
             application/json:
               schema:
                 type: array
-                $ref: '#components/schemas/Pet'
+                items:
+                  $ref: '#/components/schemas/Pet'
         default:
           description: Failed
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Error'
+                $ref: '#/components/schemas/Error'
     post:
       description: Creates a new pet.
       operationId: addPet
@@ -49,20 +50,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/NewPet'
+              $ref: '#/components/schemas/NewPet'
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Pet'
+                $ref: '#/components/schemas/Pet'
         default:
           description: Failed
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Error'
+                $ref: '#/components/schemas/Error'
   /pets/{id}:
     get:
       parameters:
@@ -79,13 +80,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Pet'
+                $ref: '#/components/schemas/Pet'
         default:
           description: Failed
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Error'
+                $ref: '#/components/schemas/Error'
     delete:
       parameters:
         - name: id
@@ -103,7 +104,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#components/schemas/Error'
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Pet:
