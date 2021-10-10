@@ -110,7 +110,7 @@ components:
     Pet:
       allOf:
         - $ref: '#/components/schemas/NewPet'
-          type: object
+        - type: object
           required:
             - id
           properties:
